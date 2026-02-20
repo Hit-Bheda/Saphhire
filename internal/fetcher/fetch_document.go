@@ -32,5 +32,5 @@ func FetchDocument(url string) {
 	}
 	defer file.Close()
 	parser.TextParser(doc, file)
-	parser.LinkParser(doc)
+	parser.LinkParser(doc, url)
 }
