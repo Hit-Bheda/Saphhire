@@ -22,6 +22,6 @@ func WriteDoc(url string, docTitle string, textContent string, log zerolog.Logge
 		Title:   docTitle,
 		Content: string(textContent),
 	}}
-	jsonData, _ := json.MarshalIndent(document, "", "\t")
+	jsonData, _ := json.MarshalIndent(document, "", " ")
 	file.Write(jsonData)
 }

@@ -1,18 +1,12 @@
 package fetcher
 
 import (
-	// "encoding/json"
-	// "fmt"
-	"net/http"
-	// "os"
-
-	// "github.com/hit-bheda/web-crawler/internal/hash"
-	// "github.com/hit-bheda/web-crawler/internal/parser"
 	"github.com/rs/zerolog"
 	"golang.org/x/net/html"
+	"net/http"
 )
 
-func FetchDocument(url string, log zerolog.Logger) *html.Node {
+func FetchDocument(url string, log zerolog.Logger) (*html.Node, error) {
 	req, _ := http.NewRequest("GET", url, nil)
 	req.Header.Set("User-Agent", "Mozilla/5.0 ...")
 
@@ -20,6 +14,7 @@ func FetchDocument(url string, log zerolog.Logger) *html.Node {
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Error().Err(err).Str("url", url).Msg("Failed to fetch page data")
+		return nil, err
 	}
 
 	defer resp.Body.Close()
@@ -27,6 +22,7 @@ func FetchDocument(url string, log zerolog.Logger) *html.Node {
 	doc, err := html.Parse(resp.Body)
 	if err != nil {
 		log.Error().Err(err).Str("url", url).Msg("Failed to fetch page data")
+		return nil, err
 	}
-	return doc
+	return doc, nil
 }

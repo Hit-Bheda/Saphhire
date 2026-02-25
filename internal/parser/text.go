@@ -13,7 +13,7 @@ func TextParser(n *html.Node) string {
 		if n.Parent.Data != "script" && n.Parent.Data != "style" {
 			text := strings.TrimSpace(n.Data)
 			if text != "" {
-				builder.WriteString(text)
+				builder.WriteString(text + " ")
 			}
 		}
 	}
